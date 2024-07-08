@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>News Details</title>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav-left">
+            <div class="burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="nav-middle">News Detail</div>
+        <div class="nav-right">
+            <% if (!fullname) { %>
+                <a href="/register">Register</a>
+                <a href="/login">Login</a>
+            <% } else { %>
+                Welcome, <%= fullname %>!
+            <% } %>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="news-detail">
+            <h1><%= newsData.title %></h1>
+            <img src="/<%= newsData.image %>" alt="News Image">
+            <p>
+                <%= newsData.content %>
+                <br><br><span class="views"><i class="fas fa-eye"></i> <%= newsData.views %></span>
+            </p>
+            <a href="/api/news" class="back-link">Back to News</a>
+        </div>
+    </main>
+</body>
+</html>

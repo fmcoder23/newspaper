@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="/admin-panel.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Admin Panel</h1>
+
+      <!-- Users Section -->
+      <section>
+        <h2>Users</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Username</th>
+              <th>Admin</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(user => { %>
+            <tr>
+              <form
+                action="/api/admin/users/<%= user.id %>?_method=PUT"
+                method="POST"
+              >
+                <input type="hidden" name="id" value="<%= user.id %>" />
+                <td><%= user.id %></td>
+                <td>
+                  <input
+                    type="text"
+                    name="fullname"
+                    value="<%= user.fullname %>"
+                    required
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    name="username"
+                    value="<%= user.username %>"
+                    required
+                  />
+                </td>
+                <td>
+                  <input type="checkbox" name="isadmin" <%= user.isadmin ?
+                  'checked' : '' %> />
+                </td>
+                <td>
+                  <button type="submit">Update</button>
+                </td>
+              </form>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- News Section -->
+      <section>
+        <h2>News</h2>
+        <form
+          action="/api/admin/news"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          <label for="title">Title:</label>
+          <input type="text" name="title" id="title" required />
+          <label for="description">Description:</label>
+          <textarea name="description" id="description" required></textarea>
+          <label for="content">Content:</label>
+          <textarea name="content" id="content" required></textarea>
+          <label for="image">Image:</label>
+          <input type="file" name="image" id="image" required />
+          <label for="author_id">Author:</label>
+          <select name="author_id" id="author_id" required>
+            <% authors.forEach(author => { %>
+            <option value="<%= author.id %>"><%= author.fullname %></option>
+            <% }) %>
+          </select>
+          <button type="submit">Create News</button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Content</th>
+              <th>Image</th>
+              <th>Author</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% news.forEach(article => { %>
+            <tr>
+              <td><%= article.id %></td>
+              <td><%= article.title %></td>
+              <td><%= article.description %></td>
+              <td><%= article.truncatedContent %></td>
+              <td><%= article.image %></td>
+              <td><%= authors.find(author => author.id === article.author_id).fullname %></td>
+              <td>
+                <form
+                  action="/api/admin/news/<%= article.id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button type="submit">Remove</button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Authors Section -->
+      <section>
+        <h2>Authors</h2>
+        <form action="/api/admin/authors" method="POST">
+          <label for="fullname">Full Name:</label>
+          <input type="text" name="fullname" id="authorFullname" required />
+          <button type="submit">Create Author</button>
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Full Name</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% authors.forEach(author => { %>
+            <tr>
+              <td><%= author.id %></td>
+              <td><%= author.fullname %></td>
+              <td>
+                <form
+                  action="/api/admin/removeAuthor/<%= author.id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <button type="submit">Remove</button>
+                </form>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </body>
+</html>

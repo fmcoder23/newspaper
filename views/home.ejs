@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style.css" />
+    <title>News Page</title>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="nav-left">
+        <div class="burger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+      <div class="nav-middle">News Page</div>
+      <div class="nav-right">
+        <% if(!fullname) { %>
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>
+        <% } else { %> Welcome, <%= fullname%>! <% } %>
+      </div>
+    </div>
+
+
+    <main>
+      <section class="news-grid">
+        <% news.forEach(article => { %>
+        <div class="news-card">
+          <img src="/<%= article.image %>" alt="<%= article.title %>" />
+          <div class="news-content">
+            <h2 class="news-title"><%= article.title %></h2>
+            <p class="news-description"><%= article.description %></p>
+            <a href="/api/news/<%= article.id %>" class="read-more">Read more</a>
+          </div>
+        </div>
+        <% }) %>
+      </section>
+    </main>
+  </body>
+</html>
