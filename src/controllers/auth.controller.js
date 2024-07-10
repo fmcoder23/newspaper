@@ -8,7 +8,6 @@ const { log } = require('console');
 const register = async (req, res) => {
     try {
         const { fullname, username, password } = req.body;
-
         const schema = Joi.object({
             fullname: Joi.string().min(3).max(50).required(),
             username: Joi.string().alphanum().min(3).max(50).required(),
@@ -92,7 +91,7 @@ const adminLogin = async (req, res) => {
         const authors = await prisma.authors.findMany();
         const news = await prisma.news.findMany();
 
-        res.render('admin-panel', {users, authors, news});
+        return res.render('admin-panel', {users, authors, news});
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal Server Error" });

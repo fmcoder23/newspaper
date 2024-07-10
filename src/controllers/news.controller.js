@@ -94,10 +94,10 @@ const displayAll = async (req, res) => {
         const token = req.cookies.Token;
         if (token) {
             const { fullname } = jwt.verify(token, config.jwtSecret);
-            res.render('home', { news, fullname });
+            return res.render('home', { news, fullname });
         }
         const fullname = "";
-        res.render('home', { news, fullname });
+        return res.render('home', { news, fullname });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -126,8 +126,10 @@ const displayOne = async (req, res) => {
             }});
         }
 
+        const findAuthor = await prisma.authors.findFirst({where: {id: newsData.author_id}});
+
         const fullname = req.user.fullname;
-        res.render('news', { newsData, fullname });
+        return res.render('news', { newsData, fullname, findAuthor });
     } catch (error) {
         console.log('Error in displayOne:', error);
         res.status(500).json({ message: "Internal Server Error" });

@@ -242,7 +242,7 @@ main.container {
 }
 
 .news-detail p {
-    padding: 0 100px;
+    text-align: left;
     /* line-height: 20px; */
     font-size: 18px;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -251,4 +251,12 @@ main.container {
 .views {
     color: #828282;
     font-size: 14px;
+}
+
+.news-detail .content {
+    padding: 0 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: left;
 }

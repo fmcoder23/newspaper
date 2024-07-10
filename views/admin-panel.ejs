@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Panel</title>
     <link rel="stylesheet" href="/admin-panel.css" />
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
   </head>
   <body>
     <div class="container">
@@ -76,6 +77,9 @@
           <textarea name="description" id="description" required></textarea>
           <label for="content">Content:</label>
           <textarea name="content" id="content" required></textarea>
+          <script>
+            CKEDITOR.replace('content');
+          </script>
           <label for="image">Image:</label>
           <input type="file" name="image" id="image" required />
           <label for="author_id">Author:</label>

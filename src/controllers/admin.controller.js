@@ -36,7 +36,7 @@ const updateUser = async (req, res) => {
             article.truncatedContent = truncateContent(article.content);
         });
 
-        res.render('admin-panel', { users, authors, news });
+        return res.render('admin-panel', { users, authors, news });
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error" });
     }
@@ -70,7 +70,7 @@ const createNews = async (req, res) => {
             article.truncatedContent = truncateContent(article.content);
         });
 
-        res.render('admin-panel', { users, authors, news });
+        return res.render('admin-panel', { users, authors, news });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Internal Server Error" })
@@ -91,7 +91,7 @@ const removeNews = async (req, res) => {
             article.truncatedContent = truncateContent(article.content);
         });
 
-        res.render('admin-panel', { users, authors, news });
+        return res.render('admin-panel', { users, authors, news });
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error" })
     }
@@ -115,7 +115,7 @@ const createAuthor = async (req, res) => {
             article.truncatedContent = truncateContent(article.content);
         });
 
-        res.render('admin-panel', { users, authors, news });
+        return res.render('admin-panel', { users, authors, news });
     } catch (error) {
         res.status(500).json({ message: "Internal Server Error" })
     }
@@ -134,9 +134,9 @@ const removeAuthor = async (req, res) => {
             article.truncatedContent = truncateContent(article.content);
         });
 
-        res.render('admin-panel', { users, authors, news });
+        return res.render('admin-panel', { users, authors, news });
     } catch (error) {
-        res.status(500).json({ message: "Internal Server Error" })
+        return res.status(500).json({ message: "Internal Server Error" })
     }
 };
 
